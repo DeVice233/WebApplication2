@@ -1,0 +1,35 @@
+﻿@model WebApplication2.Models.LoginModel
+ 
+<h2>Вход на сайт</h2>
+ 
+
+ <div class="container text-center align-middle justify-content-center d-flex">
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true" class="form-signin">
+ <h1 class="h3 mb-3 font-weight-normal">Авторизуйтесь</h1>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div class="form-label-group">
+            <label asp-for="Email">Введите Email</label>
+            <input type="email" required="" autofocus="" id="inputEmail" asp-for="Email" class="form-control" placeholder="Email адрес"/>
+            <span asp-validation-for="Email" />
+        </div>
+        <div class="form-label-group">
+            <label asp-for="Password">Введите пароль</label>
+            <input type="password"  required="" autofocus="" id="passwordTextBox" asp-for="Password" class="form-control" placeholder="Пароль"/>
+            <span asp-validation-for="Password" />
+            <div class="custom-control custom-switch">
+  <input type="checkbox" class="custom-control-input" id="customSwitch1" onclick="toggleShowPassword()">
+  <label class="custom-control-label" for="customSwitch1">Показать пароль</label>
+</div>
+        </div>
+        <div class="form-label-group">
+            <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Войти</button>
+            <br>
+            <br>
+            <a asp-action="Register" asp-controller="Account" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Регистрация в два клика</a>
+            
+        </div>
+    </div>
+</form>
+ </div>
+     
