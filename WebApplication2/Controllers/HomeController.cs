@@ -45,6 +45,10 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
+        public IActionResult ForPushkin()
+        {
+            return View();
+        }
         public IActionResult Contacts()
         {
             return View();
