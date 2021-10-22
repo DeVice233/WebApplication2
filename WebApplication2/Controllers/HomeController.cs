@@ -41,10 +41,16 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "admin")]
+        public IActionResult CreateService()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
         }
+        
         public IActionResult ForPushkin()
         {
             return View();
@@ -52,6 +58,29 @@ namespace WebApplication2.Controllers
         public IActionResult Contacts()
         {
             return View();
+        }
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> DetailsService(int? id)
+        {
+            if (id != null)
+            {
+                Service service = await db.Services.FirstOrDefaultAsync(p => p.Id == id);
+                if (service != null)
+                    return View(service);
+            }
+            return NotFound();
+        }
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> Services()
+        {
+            return View(await db.Services.ToListAsync());
+        }
+        [HttpPost, Authorize(Roles = "admin")]
+        public async Task<IActionResult> CreateService(Service service)
+        {
+            db.Services.Add(service);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
         [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(User user)
@@ -82,10 +111,28 @@ namespace WebApplication2.Controllers
             }
             return NotFound();
         }
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> EditService(int? id)
+        {
+            if (id != null)
+            {
+                Service service = await db.Services.FirstOrDefaultAsync(p => p.Id == id);
+                if (service != null)
+                    return View(service);
+            }
+            return NotFound();
+        }
         [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(User user)
         {
             db.Users.Update(user);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        [HttpPost, Authorize(Roles = "admin")]
+        public async Task<IActionResult> EditService(Service service)
+        {
+            db.Services.Update(service);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -102,7 +149,6 @@ namespace WebApplication2.Controllers
             }
             return NotFound();
         }
-
         [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -115,13 +161,41 @@ namespace WebApplication2.Controllers
             }
             return NotFound();
         }
-        
         [Authorize(Roles = "admin")]
         public IActionResult Delete()
         {
             return Content("Вход только для администратора");
         }
-     
 
+
+        [Authorize(Roles = "admin")]
+        public IActionResult DeleteService()
+        {
+            return Content("Вход только для администратора");
+        }
+        [HttpGet]
+        [ActionName("DeleteService"), Authorize(Roles = "admin")]
+        public async Task<IActionResult> ConfirmDeleteService(int? id)
+        {
+            if (id != null)
+            {
+                Service service = await db.Services.FirstOrDefaultAsync(p => p.Id == id);
+                if (service != null)
+                    return View(service);
+            }
+            return NotFound();
+        }
+        [HttpPost, Authorize(Roles = "admin")]
+        public async Task<IActionResult> DeleteService(int? id)
+        {
+            if (id != null)
+            {
+                Service service = new Service { Id = id.Value };
+                db.Entry(service).State = EntityState.Deleted;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
     }
 }

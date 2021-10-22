@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebApplication2.Models.Service>
+@{
+    ViewBag.Title = "Все Услуги";
+}
+     @if (User.IsInRole("admin")){
+<a asp-action="CreateService">Добавить Услугу</a>
+    }
+     <div class="row">
+    @foreach (var item in Model)
+    {
+       <div class="card col-sm-3 m-1" style="width: 18rem;">
+  <div class="card-body" style="padding:0.7rem 0;">
+      
+      <a asp-action="EditService" asp-controller="Home" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="DeleteService" asp-controller="Home" asp-route-id="@item.Id">Удалить</a>
+     
+    <h5 class="card-title">@item.Name</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Длительность: @item.Duration</h6>
+    <p class="card-text">@item.Description куекуе уке ук еуке укеуке уке уке куе куе уке уке куеукекуекуеку уеуке уке уке у</p>
+      <hr style="margin:0.5rem 0;"> 
+    <a asp-action="DetailsService" class="btn btn-primary" asp-controller="Home" asp-route-id="@item.Id">Подробнее</a>
+  </div>
+</div>    
+    }
+</div>

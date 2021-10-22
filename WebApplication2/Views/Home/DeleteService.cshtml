@@ -1,0 +1,35 @@
+﻿@model WebApplication2.Models.Service
+@{
+    ViewBag.Title = "Удаление услуги";
+}
+ 
+<div>
+    <dl class="dl-horizontal">
+        <dt>Название</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+ 
+        <dt>Описание</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>  
+        <dt>Длительность</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt>Цена</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+     
+    </dl>
+ 
+    <div>
+        <form asp-controller="Home" asp-action="DeleteService" method="post">
+            <div class="form-group">
+                <input type="submit" class="btn btn-default" value="Удалить" />
+            </div>
+        </form>
+    </div>
+</div>

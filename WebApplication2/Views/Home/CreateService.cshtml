@@ -1,0 +1,25 @@
+﻿@model WebApplication2.Models.Service
+@{
+    ViewBag.Title = "Добавление услуги";
+}
+<form asp-action="CreateService" asp-controller="home">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Имя</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Описание</label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+     <div class="form-group">
+        <label asp-for="Cost" class="control-label">Цена</label>
+        <input type="number" asp-for="Cost" class="form-control" />
+    </div>
+     <div class="form-group">
+        <label asp-for="Duration" class="control-label">Длительность</label>
+        <input type="text" asp-for="Duration" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-default" />
+    </div>
+</form>
