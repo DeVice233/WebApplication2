@@ -60,7 +60,7 @@ namespace WebApplication2.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id != null)
