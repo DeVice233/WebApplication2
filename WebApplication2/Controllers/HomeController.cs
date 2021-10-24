@@ -98,6 +98,10 @@ namespace WebApplication2.Controllers
             if (id != null)
             {
                 User user = await db.Users.FirstOrDefaultAsync(p => p.Id == id);
+                if(id == 1)
+                {
+                    return RedirectToAction("Index");
+                }
                 if (user != null)
                     return View(user);
             }
@@ -120,6 +124,10 @@ namespace WebApplication2.Controllers
         {
             if (id != null)
             {
+                if (id == 1)
+                {
+                    return RedirectToAction("Index");
+                }
                 User user = await db.Users.FirstOrDefaultAsync(p => p.Id == id);
                 if (user != null)
                     return View(user);
