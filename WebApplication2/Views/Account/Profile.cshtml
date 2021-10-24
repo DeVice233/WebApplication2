@@ -12,8 +12,6 @@
         <dd>@Model.Name</dd>
        <dt>Email</dt>
         <dd>@Model.Email</dd>
-        <dt>Возраст</dt>
-        <dd>@Model.Age</dd>
         <dt>Пароль</dt>
         <form>
         <div class="form-group">
@@ -25,5 +23,18 @@
 </div>
 </form>
     </dl>
+    <h2>Заказы:</h2>
+    <table class="table">
+           <tr>   <th>Номер Заказа</th><th>Статус заказа</th><th>Логин</th><th>Услуга</th><th>Время заказа</th>   </tr>
+        @foreach (var item in @Model.Orders)
+    {
+        <tr><td>@item.Id</td>
+        <td>@item.Status</td>
+        <td>@item.User.Name</td>
+        <td>@item.Service.Name</td>
+        <td>@item.OrderTime</td>
+            </tr>
+    }
+</table>
 </div>
 

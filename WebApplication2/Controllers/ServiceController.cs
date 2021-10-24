@@ -72,11 +72,6 @@ namespace WebApplication2.Controllers
             return RedirectToAction("Services");
         }
 
-        [Authorize(Roles = "admin")]
-        public IActionResult DeleteService()
-        {
-            return Content("Вход только для администратора");
-        }
         [HttpGet]
         [ActionName("DeleteService"), Authorize(Roles = "admin")]
         public async Task<IActionResult> ConfirmDeleteService(int? id)
@@ -89,7 +84,8 @@ namespace WebApplication2.Controllers
             }
             return NotFound();
         }
-        [HttpPost, Authorize(Roles = "admin")]
+        [HttpPost]
+        [ActionName("DeleteService"), Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteService(int? id)
         {
             if (id != null)
@@ -101,6 +97,20 @@ namespace WebApplication2.Controllers
             }
             return NotFound();
         }
-    
-}
+
+        public IActionResult AddOrder(int? id)
+        {
+            var email = User.Identity.Name;
+            if (id != null)
+            {
+                User user =_context.Users.FirstOrDefault(p => p.Email == email);
+                Service service = _context.Services.FirstOrDefault(p => p.Id == id);
+                Order order = new Order { ServiceId = service.Id, UserId = user.Id };
+               _context.Orders.Add(order);
+                 _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return NotFound();
+        }
+    }
 }

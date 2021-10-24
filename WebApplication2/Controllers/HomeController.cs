@@ -37,6 +37,13 @@ namespace WebApplication2.Controllers
             return View(await db.Users.ToListAsync());
         }
         [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Orders()
+        {
+            List<Service> Services = await db.Services.ToListAsync();
+            List<User> Users = await db.Users.ToListAsync();
+            return View(await db.Orders.ToListAsync());
+        }
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
@@ -69,6 +76,7 @@ namespace WebApplication2.Controllers
         [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(User user)
         {
+            user.Role = await db.Roles.FirstOrDefaultAsync(p => p.Name == "user");
             db.Users.Add(user);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -99,6 +107,7 @@ namespace WebApplication2.Controllers
         [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(User user)
         {
+            user.Role = await db.Roles.FirstOrDefaultAsync(p => p.Name == "user");
             db.Users.Update(user);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -128,11 +137,6 @@ namespace WebApplication2.Controllers
                 return RedirectToAction("Index");
             }
             return NotFound();
-        }
-        [Authorize(Roles = "admin")]
-        public IActionResult Delete()
-        {
-            return Content("Вход только для администратора");
         }
     }
 }

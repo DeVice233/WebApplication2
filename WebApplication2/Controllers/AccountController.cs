@@ -109,6 +109,9 @@ namespace WebApplication2.Controllers
             if (email != null)
             {
                 User user = await _context.Users.FirstOrDefaultAsync(p => p.Email == email);
+                user.Orders = _context.Orders.Where(p => p.UserId == user.Id).ToList();
+                List<Service> Services = await _context.Services.ToListAsync();
+                List<User> Users = await _context.Users.ToListAsync();
                 if (user != null)
                    return View(user);
             }

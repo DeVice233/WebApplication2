@@ -18,8 +18,8 @@
     <h5 class="card-title">@item.Name</h5>
     <h6 class="card-subtitle mb-2 text-muted">Длительность: @item.Duration</h6>
     <p class="card-text">@item.Description</p>
-      <hr style="margin:0.5rem 0;"> 
-    <a asp-action="DetailsService" class="btn btn-primary" asp-controller="Service" asp-route-id="@item.Id">Подробнее</a>
+      <hr style="margin:0.5rem 0;">
+          <a asp-action="DetailsService" class="btn btn-primary" style="align-self: center;" asp-controller="Service" asp-route-id="@item.Id">Подробнее</a>
   </div>
 </div>    
        </div>

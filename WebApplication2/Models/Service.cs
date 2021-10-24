@@ -12,5 +12,7 @@ namespace WebApplication2.Models
         public string Description { get; set; }
         public decimal Cost { get; set; }
         public string Duration { get; set; }
+        public string ImgSource { get; set; }
+
     }
 }

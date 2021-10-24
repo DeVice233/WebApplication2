@@ -15,10 +15,10 @@
    <h3 style="display:flex;justify-content: center; margin-top: 50px;">@Model.Cost ₽</h3>
 </div>
              
-              <a asp-action="" class="btn btn-success" asp-controller="Service" style=" position: absolute; bottom: 0px; right: 0;" >Заказать</a>
+              <a asp-action="AddOrder" asp-route-id="@Model.Id" class="btn btn-success" asp-controller="Service" style=" position: absolute; bottom: 0px; right: 0;" >Заказать</a>
           </div>
          
           <div class="col-md-5 order-md-1">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" src="https://sun9-73.userapi.com/impg/gQzVofvvULj5fqA_3fafpy62_Ko5EX50TusQaQ/ETwHX7TDCNU.jpg?size=604x604&quality=96&sign=267d37a9cc16c8381488239f97325b8c&type=album" data-holder-rendered="true" style="width: 500px; height: 500px;">
+            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" src="@Model.ImgSource" data-holder-rendered="true" style="width: 500px; height: 500px;">
           </div>
         </div>
