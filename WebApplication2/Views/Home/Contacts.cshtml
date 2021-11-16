@@ -57,19 +57,13 @@
           </div>
           <div class="control-group form-group">
             <div class="controls">
-              <label>E-mail:</label>
-              <input type="email" class="form-control" id="email" required data-validation-required-message="Please enter your email address.">
-            </div>
-          </div>
-          <div class="control-group form-group">
-            <div class="controls">
               <label>Текст:</label>
               <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
             </div>
           </div>
           <div id="success"></div>
           <!-- For success/fail messages -->
-          <button type="submit" class="btn btn-primary" id="sendMessageButton">Отправить</button>
+          <button type="submit" class="btn btn-primary" asp-action="Send" asp-controller="Home" id="sendMessageButton">Отправить</button>
         </form>
       </div>
 

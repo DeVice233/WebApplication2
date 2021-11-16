@@ -72,7 +72,7 @@ namespace WebApplication2.Controllers
         {
             return View(await db.Services.ToListAsync());
         }
-       
+
         [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(User user)
         {
@@ -96,7 +96,9 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id != null)
-            {
+            { 
+                
+
                 User user = await db.Users.FirstOrDefaultAsync(p => p.Id == id);
                 if(id == 1)
                 {
@@ -107,10 +109,17 @@ namespace WebApplication2.Controllers
             }
             return NotFound();
         }
-        
+        public IActionResult Send()
+        {
+            EmailService emailService = new EmailService();
+            emailService.SendEmailAsync("somemail@mail.ru", "Тема письма", "Тест письма: тест!");
+            return RedirectToAction("Index");
+        }
         [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(User user)
         {
+           
+               
             user.Role = await db.Roles.FirstOrDefaultAsync(p => p.Name == "user");
             db.Users.Update(user);
             await db.SaveChangesAsync();

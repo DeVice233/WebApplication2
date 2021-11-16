@@ -104,6 +104,7 @@ namespace WebApplication2.Controllers
 
         public async Task<IActionResult> Profile()
         {
+           
             // string name = HttpContext.User.Identity.Name;
             var email = User.Identity.Name;
             if (email != null)
