@@ -109,12 +109,15 @@ namespace WebApplication2.Controllers
             }
             return NotFound();
         }
-        public IActionResult Send()
+
+        public IActionResult Send(string name, string phone, string message, string emailFrom, string passwordFrom)
         {
+           
             EmailService emailService = new EmailService();
-            emailService.SendEmailAsync("somemail@mail.ru", "Тема письма", "Тест письма: тест!");
-            return RedirectToAction("Index");
+            emailService.SendEmailAsync(name, phone, message, emailFrom, passwordFrom);
+            return RedirectToAction("Contacts");
         }
+
         [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(User user)
         {

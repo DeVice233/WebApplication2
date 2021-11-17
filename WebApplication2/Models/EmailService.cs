@@ -10,27 +10,35 @@ namespace WebApplication2.Models
 {
     public class EmailService
     {
-        public void SendEmailAsync(string email, string subject, string message)
+
+        public void SendEmailAsync(string name, string phone, string message, string emailFrom, string passwordFrom)
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Администрация сайта", "yakovenko182003@gmail.com"));
+            emailMessage.From.Add(new MailboxAddress(name, emailFrom));
             emailMessage.To.Add(new MailboxAddress("", "yakovenko182003@gmail.com"));
-            emailMessage.Subject = "мддаа";
+            emailMessage.Subject = "Сообщение пользователя - " + emailFrom;
             emailMessage.Body = new TextPart("Plain")
             {
-                Text = "проверка"
+                Text = message + "\n\nТелефон пользователя: " +  phone
             };
 
             using (var client = new SmtpClient())
             {
-                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-                 client.Connect("smtp.gmail.com", 25, false);
-                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-                 client.Authenticate("email", "parol");
-                 client.Send(emailMessage);
-
-                 client.Disconnect(true);
+                try
+                {
+                    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                    client.Connect("smtp.gmail.com", 25, false);
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                    client.Authenticate(emailFrom, passwordFrom);
+                    client.Send(emailMessage);
+                    
+                    client.Disconnect(true);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
     }
